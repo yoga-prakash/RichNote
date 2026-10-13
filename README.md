@@ -1,4 +1,5 @@
 <h1>RichNote</h1>
+<p>This project is no longer maintained so please if any pull requests do so with caution.</p>
 <p>A simple desktop text editor built with Python and PySide6. Create and edit text files, and add tables, images and hyperlinks to your notes. Notes that contain these items are saved as Markdown (<code>.md</code>) files.</p>
 <h2>Features</h2>
 <h3>File Management</h3>
