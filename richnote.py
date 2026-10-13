@@ -71,14 +71,36 @@ class RichNote(QMainWindow):
         Hyperlink.setShortcut("Ctrl+H")
         Hyperlink.triggered.connect(self.create_link)
 
+    def has_rich_content(self):
+        # True if the note contains a table, an image or a link
+        html = self.textbox.toHtml()
+        return any(tag in html for tag in ("<table", "<img", "<a href"))
+
     def save_file(self, contents):
-        if self.file_path is None:
-            filename, _ = file.getSaveFileName(self.window(), "Save File", "untitled", "Text Files (*.txt);;Python Files (*.py);;All Files (*)")
+        rich = self.has_rich_content()
+
+        # Tables, images and links are saved as Markdown, plain text as it is
+        if rich:
+            contents = self.textbox.toMarkdown()
+
+        # Ask for a location on first save, or when a .txt note now needs to become .md
+        if self.file_path is None or (rich and not self.file_path.lower().endswith(".md")):
+            if rich:
+                default = (os.path.splitext(self.file_path)[0] if self.file_path else "untitled") + ".md"
+                filters = "Markdown Files (*.md)"
+            else:
+                default = "untitled"
+                filters = "Text Files (*.txt);;Markdown Files (*.md);;Python Files (*.py);;All Files (*)"
+
+            filename, _ = file.getSaveFileName(self.window(), "Save File", default, filters)
             if not filename:
                 return
+            if rich and not filename.lower().endswith(".md"):
+                filename += ".md"
             self.file_path = filename
             self.setWindowTitle(os.path.basename(filename))
-        with open(self.file_path, "w") as textfile:
+
+        with open(self.file_path, "w", encoding="utf-8") as textfile:
             textfile.write(contents)
 
     def create_table(self):
@@ -122,11 +144,17 @@ class RichNote(QMainWindow):
         new.show()
 
     def open_file(self):
-        path, _ = file.getOpenFileName(self.window(), "Open File", "", "Text Files (*.txt)")
+        path, _ = file.getOpenFileName(self.window(), "Open File", "", "Text and Markdown Files (*.txt *.md);;Text Files (*.txt);;Markdown Files (*.md)")
         if path:
-            with open(path, mode="r") as textfile:
+            with open(path, mode="r", encoding="utf-8") as textfile:
                 contents = textfile.read()
-            self.textbox.setPlainText(contents)
+
+            # Markdown files are displayed with their tables, images and links
+            if path.lower().endswith(".md"):
+                self.textbox.setMarkdown(contents)
+            else:
+                self.textbox.setPlainText(contents)
+
             self.file_path = path
             self.setWindowTitle(os.path.basename(path))
 
