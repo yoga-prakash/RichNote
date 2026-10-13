@@ -47,6 +47,29 @@
 <tr><td><code>Ctrl+H</code></td><td>Insert Hyperlink</td></tr>
 </tbody>
 </table>
+<h2>Comparison with Notepad</h2>
+<p>How RichNote compares with the classic Windows Notepad. Newer versions of Notepad have added some features, so results vary by Windows version.</p>
+<table>
+<thead>
+<tr><th>Capability</th><th>RichNote</th><th>Notepad</th></tr>
+</thead>
+<tbody>
+<tr><td>Edit and save plain text</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Insert tables</td><td>Yes</td><td>No</td></tr>
+<tr><td>Insert images</td><td>Yes</td><td>No</td></tr>
+<tr><td>Insert hyperlinks</td><td>Yes</td><td>No</td></tr>
+<tr><td>Automatic Markdown saving</td><td>Yes</td><td>No</td></tr>
+<tr><td>Open Markdown files with tables, images and links shown</td><td>Yes</td><td>No, opens as plain text</td></tr>
+<tr><td>Multiple note windows</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Date and live clock in status bar</td><td>Yes</td><td>No</td></tr>
+<tr><td>AI features</td><td>None</td><td>Optional in newer versions</td></tr>
+<tr><td>Find and replace</td><td>Not yet</td><td>Yes</td></tr>
+<tr><td>Tabs</td><td>Not yet</td><td>Newer versions</td></tr>
+<tr><td>Word wrap, zoom and font settings</td><td>Not yet</td><td>Yes</td></tr>
+<tr><td>Line and column numbers</td><td>Not yet</td><td>Yes</td></tr>
+<tr><td>Save As</td><td>Not yet</td><td>Yes</td></tr>
+</tbody>
+</table>
 <h2>Requirements</h2>
 <ul>
 <li>Python 3.9 or later</li>
